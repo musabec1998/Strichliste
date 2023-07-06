@@ -1,0 +1,54 @@
+﻿@model List<Benutzer>
+
+<div>
+    @foreach (Benutzer nutzer in Model)
+    {
+        <div class="row">
+            <div class="col-xl-1 col-md-1 col-2">
+                <button type="button" class="bi bi-gear settings" data-bs-toggle="modal" data-bs-target="#ModalForm" value="@nutzer.Id" data-name="@nutzer.Name"></button>
+            </div>
+            <div class="col-xl-2 col-md-4 col-3">
+                <p>@nutzer.Name</p>
+            </div>
+            <div class="col-md-1 col-1">
+                <a asp-controller="Home" asp-action="Hoch" data-ajax="true" data-ajax-update="#benutzer" asp-route-benutzerName="@nutzer.Name" class="bi bi-plus-circle"></a>
+            </div>
+            <div class="col-md-4 col-3">
+                <input type="text" value="@nutzer.Anzahl" readonly class="form-control" />
+            </div>
+            <div class="col-md-1 col-1">
+                <a asp-controller="Home" asp-action="Runter" data-ajax="true" data-ajax-update="#benutzer" asp-route-benutzerName="@nutzer.Name" class="bi bi-dash-circle"></a>
+            </div>
+            <div class="col-md-1 col-1">
+                <a asp-controller="Home" asp-action="NutzerLöschen" data-ajax="true" data-ajax-update="#benutzer" asp-route-id="@nutzer.Id" class="bi bi-trash"></a>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div id="ModalForm" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Namen ändern</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+        
+                <form role="form" method="POST" asp-action="BenutzerNameAndern" data-ajax="true" data-ajax-update="#benutzer">
+                    <div class="form-group">
+                        <label class="control-label">Name eingeben:</label>
+                        <div>
+                            <input type="hidden" id="nutzerID" name="nutzerID" />
+                            <input type="text" class="form-control input-lg" name="benutzerName" id="benutzerName">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success" id="closeModal">ändern</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">abbruch</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/site.js"></script>

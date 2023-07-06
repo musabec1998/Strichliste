@@ -1,0 +1,23 @@
+﻿@model List<Benutzer>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="benutzer">
+    <partial name="_NutzerAnzeigen" />
+</div>
+
+<hr />
+
+<div>
+    <form method="post" asp-action="BenutzerHinzufügen" id="newUserForm" data-ajax="true" data-ajax-update="#benutzer" data-ajax-complete="onComplete">
+        <input type="text" name="neuerBenutzer" id="neuerBenutzer" required />
+        <button type="submit" class="bi bi-person-plus" />
+    </form>
+</div>
+
+<script>
+    function onComplete() {
+        $("#neuerBenutzer").val('');
+    };
+</script>
